@@ -24,14 +24,16 @@
             </p>
 
             <!-- Username Form -->
-            <form method="POST" action="{% url "listly_user" %}">
-              {% csrf_token %}
+            {% if request.session.user_name %}
+              <p class=""> ✨ Hello , {{ request.session.user_name }}!</p>
+            {% else %}
+              <form method="POST" action="{% url 'listly_user' %}">
+                {% csrf_token %}
 
-              <div class="mb-3">
-                {{form.username}}
-              </div>
-              <button type="submit" class="btn btn-lg w-100 rounded-3 text-white fw-3" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Get Started 🚀</button>
-            </form>
+                <div class="mb-3">{{ form.username }}</div>
+                <button type="submit" class="btn btn-lg w-100 rounded-3 text-white fw-3" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Get Started 🚀</button>
+              </form>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.db.models import Prefetch
 from listly_app.forms import listly_user_form, newTask
 from listly_app.models import listly_user, task
 
@@ -11,8 +12,10 @@ def to_do_app(request):
 
 
 def user_lists(request) : 
-    data = listly_user.objects.prefetch_related('userTasks').all()
-    return render(request, "user_lists.html", {"data" : data})
+    data = listly_user.objects.prefetch_related(
+        Prefetch('userTasks', queryset=task.objects.filter(completed=False))
+    ).all()
+    return render(request, "user_lists.html", {"data": data})
 
 
 def listly_user_views(request) : 
