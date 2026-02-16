@@ -1,0 +1,123 @@
+{% extends 'global.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/user_lists.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-center mb-4" style="color: #2c3e50; font-weight: 700;">
+                <i class="bi bi-list-check me-2" style="color: #667eea;"></i>
+                User Tasks Dashboard
+            </h2>
+            <p class="text-center text-muted mb-5">Manage and track tasks for all users</p>
+        </div>
+    </div>
+
+    <!-- User Cards Grid -->
+    <div class="row g-4">
+        {% for ele in data %}
+        <div class="col-md-6 col-lg-4">
+            <div class="user-card">
+                <!-- Card Header with User Info -->
+                <div class="user-card-header d-flex align-items-center">
+                    <div class="user-avatar">
+                        {{ ele.user_name|first|upper }}
+                    </div>
+                    <div>
+                        <h4 class="user-name">{{ ele.user_name }}</h4>
+                        <span class="task-count">
+                            <i class="bi bi-check-circle me-1"></i>
+                            {{ ele.userTasks.all|length }} tasks
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Task Preview (shows first 3 tasks) -->
+                <div class="task-preview">
+                    {% if ele.userTasks.all %}
+                        {% for list in ele.userTasks.all|slice:"3" %}
+                        <div class="task-item">
+                            <div class="task-description">
+                                {{ list.description|truncatechars:40 }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                        {% if ele.userTasks.all|length > 3 %}
+                        <div class="text-center text-muted small mt-2">
+                            <i class="bi bi-three-dots"></i> 
+                            and {{ ele.userTasks.all|length|add:"-3" }} more tasks
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                            <p class="mt-2">No tasks yet</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- View All Button (triggers modal) -->
+                <button class="view-all-btn" data-bs-toggle="modal" data-bs-target="#userModal{{ forloop.counter }}">
+                    <i class="bi bi-eye me-2"></i>
+                    View All Tasks ({{ ele.userTasks.all|length }})
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal for each user -->
+        <div class="modal fade" id="userModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-person-circle me-2"></i>
+                            {{ ele.user_name }}'s Tasks
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        {% if ele.userTasks.all %}
+                            {% for list in ele.userTasks.all %}
+                            <div class="modal-task-item">
+                                <div class="modal-task-content">
+                                    <div class="modal-task-description">
+                                        {{ list.description }}
+                                    </div>
+                                    <div class="modal-task-meta">
+                                        <i class="bi bi-clock me-1"></i>
+                                        Added: {{ list.created_at|date:"M d, Y" }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="bi bi-emoji-smile" style="font-size: 4rem; color: #c7d2fe;"></i>
+                                <h5 class="mt-3">No tasks yet</h5>
+                                <p class="text-muted">{{ ele.user_name }} hasn't added any tasks</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <!-- No users found -->
+        <div class="col-12">
+            <div class="text-center py-5">
+                <i class="bi bi-people" style="font-size: 4rem; color: #dee2e6;"></i>
+                <h4 class="mt-3 text-muted">No users found</h4>
+                <p class="text-muted">There are no users with tasks to display.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

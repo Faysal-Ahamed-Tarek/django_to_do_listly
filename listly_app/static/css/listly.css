@@ -1,0 +1,220 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.todo-container {
+  overflow: hidden;
+}
+
+.panel-left {
+
+  background: #f8f9fa;
+}
+
+
+.panel-header {
+  padding: 1.5rem;
+  border-bottom: 2px dashed #dee2e6;
+  background: white;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.add-form{
+  border-bottom: 2px dashed #dee2e6; 
+}
+
+.todo-list {
+  padding: 1rem;
+}
+
+.todo-item {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.todo-item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.todo-item.completed {
+  background: #f8f9fa;
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+}
+
+.todo-check {
+  margin-right: 1rem;
+}
+
+.todo-check .form-check-input {
+  width: 1.3rem;
+  height: 1.3rem;
+  cursor: pointer;
+}
+
+.todo-check .form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.todo-content {
+  flex: 1;
+}
+
+.todo-text {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #2c3e50;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+
+.action-btn.edit {
+  color: #007bff;
+}
+
+.action-btn.edit:hover {
+  background: #007bff;
+  color: white;
+}
+
+.action-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0; 
+}
+
+.action-btn a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;  
+  text-decoration: none;  
+}
+
+.action-btn.complete:hover {
+  background-color: #28a745;  
+}
+
+.action-btn.complete:hover a {
+  color: white; 
+}
+
+
+.add-form {
+  padding: 1.5rem;
+  background: white;
+}
+
+.add-form input {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.add-form input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.add-form button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.add-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.right-todo-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.right-todo-item:hover {
+  background: #f8f9fa;
+}
+
+.right-todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.right-todo-item .slash {
+  color: #dc3545;
+  font-weight: bold;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.right-todo-item .bi-check-circle-fill {
+  color: #28a745;
+  margin-right: 1rem;
+}
+
+.badge-progress {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+}
+
+.custom_btn button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.custom_btn {
+    margin-top: 1.5rem;
+}

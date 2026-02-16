@@ -1,0 +1,40 @@
+{% extends 'global.html' %}
+{% load static %}
+
+{% block title %}
+  Welcome to listly
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/welcome.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="mt-5 d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card border p-5 rounded-4">
+            <!-- Title -->
+            <h1 class="fw-bold mb-3">Organize Your Day. Conquer Your Goals.</h1>
+
+            <!-- Description -->
+            <p class="mb-4">
+              Welcome to <strong>listly</strong> — your simple and powerful to-do list app. Enter your name to create your personal task space and start getting things done today.
+            </p>
+
+            <!-- Username Form -->
+            <form method="POST" action="{% url "listly_user" %}">
+              {% csrf_token %}
+
+              <div class="mb-3">
+                {{form.username}}
+              </div>
+              <button type="submit" class="btn btn-lg w-100 rounded-3 text-white fw-3" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Get Started 🚀</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

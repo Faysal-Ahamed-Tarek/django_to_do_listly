@@ -1,0 +1,66 @@
+{% extends 'global.html' %} {% load static %} {% block styles %}
+  <link rel="stylesheet" href="{% static 'css/completed.css' %}" />
+{% endblock %} {% block content %}
+  <div class="todo-container my-5">
+    <div class="container">
+      <!-- Main Todo Panel -->
+      <div class="row">
+        <div class="col-12">
+          <div class="todo-panel">
+            <div class="row">
+              <!-- Active Tasks -->
+              <div class="col-md-8 border bg-white mx-auto panel-left rounded">
+                <div class="panel-header d-flex justify-content-between align-items-center">
+                  <h3 class="fs-5">
+                    <i class="bi bi-list-check me-2"></i>
+                    Completed Tasks
+                  </h3>
+                </div>
+
+                <div>
+                  {% if messages %}
+                    {% for message in messages %}
+                      <p style="text-align: center; margin-top: 15px; margin-bottom: 0px; {% if message.tags == 'success' %}
+                        color: green;
+                        {% elif message.tags == 'error' %}
+                          color: red;
+                        {% elif message.tags == 'warning' %}
+                          color: orange;
+
+                        {% endif %}">{{ message }}</p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+
+                <!-- Todo List -->
+                <div class="todo-list bg-white">
+                  {% if data %}
+                    {% for ele in data %}
+                      <div class="todo-item">
+                        <div class="d-flex align-items-center flex-grow-1">
+                          <div class="todo-content">
+                            <div class="todo-text">{{ ele.description }}</div>
+                          </div>
+                          <div class="todo-actions">
+                            <button class="action-btn delete" title="Delete"><a href="{% url 'delete_single_task' ele.pk %}"><i class="bi bi-trash"></i></a></button>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <p style="
+                    text-align: center;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    color: gray;
+                  ">No completed tasks yet.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

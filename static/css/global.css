@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&family=Sora:wght@100..800&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Maven Pro", sans-serif;
+}
+
+h1 {
+    color: #424242 !important;
+}
+
+body{
+    background-color: #f8f9fa !important;
+}
+
+/* Header link styles for global header actions */
+.navbar .nav-link{
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color .15s ease, color .15s ease, transform .08s ease;
+    font-weight: 500;
+    color: #424242 !important;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.navbar .nav-link:active{
+    transform: translateY(1px);
+}
+
+@media (max-width: 576px) {
+  .navbar .btn {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+}
