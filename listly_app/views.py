@@ -1,10 +1,13 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.db.models import Prefetch
 from listly_app.forms import listly_user_form, newTask
 from listly_app.models import listly_user, task
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+from listly_app.serializer import list_serializer
 
 # Create your views here.
 def to_do_app(request):
@@ -90,3 +93,27 @@ def edit_task(request, pk) :
     edited_data = task.objects.get(pk = pk)
     form = newTask(initial={"description": edited_data.description})
     return render(request, "listly.html", {"data" : data, "addTask" : form, "edit_task" : edited_data, "userName" : userName})
+
+
+
+@api_view(['GET', 'POST'])
+def all_tasks_api(request) : 
+    if request.method == "GET":
+        qs = task.objects.all().order_by("?")
+        serializer = list_serializer(qs, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == "POST":
+        username = request.data.get("username")
+        description = request.data.get("description")
+        if not username or not description:
+            return Response({"detail": "username and description required"}, status=400)
+
+        user_obj, created = listly_user.objects.get_or_create(user_name=username)
+
+        if task.objects.filter(description=description, completed=False, username=user_obj).exists():
+            return Response({"detail": "Task already exists for this user"}, status=400)
+
+        new_task = task.objects.create(description=description, username=user_obj)
+        serializer = list_serializer(new_task)
+        return Response(serializer.data, status=201)

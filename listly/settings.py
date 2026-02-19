@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "listly_app",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
