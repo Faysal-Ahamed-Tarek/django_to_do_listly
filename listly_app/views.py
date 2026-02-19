@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Prefetch
 from listly_app.forms import listly_user_form, newTask
 from listly_app.models import listly_user, task
@@ -110,10 +110,25 @@ def all_tasks_api(request) :
             return Response({"detail": "username and description required"}, status=400)
 
         user_obj, created = listly_user.objects.get_or_create(user_name=username)
-
         if task.objects.filter(description=description, completed=False, username=user_obj).exists():
             return Response({"detail": "Task already exists for this user"}, status=400)
 
         new_task = task.objects.create(description=description, username=user_obj)
         serializer = list_serializer(new_task)
         return Response(serializer.data, status=201)
+
+
+@api_view(['GET'])
+def single_task(request, pk) : 
+    if request.method == "GET" : 
+        try : 
+            singleTask = task.objects.get(pk = pk)
+            serializer = list_serializer(singleTask)
+            return Response({
+                "data" : serializer.data
+            })
+        except : 
+            return Response({
+                "data" : "there is no data"
+            })
+        

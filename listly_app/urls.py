@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import all_tasks_api, completed_task,listly_user_views, delete_single_task, edit_task, listly, mark_as_complete, to_do_app, user_lists
+from .views import all_tasks_api, completed_task,listly_user_views, delete_single_task, edit_task, listly, mark_as_complete, single_task, to_do_app, user_lists
 
 
 
@@ -14,5 +14,7 @@ urlpatterns = [
     path("completed_task/<int:pk>/", mark_as_complete, name="mark_as_complete"),
     path("edit_task/<int:pk>", edit_task, name = "edit_task"),
     # api
-    path("tasks/", all_tasks_api)
+    path("tasks/", all_tasks_api),
+    path("tasks/<int:pk>", single_task)
+
 ]
