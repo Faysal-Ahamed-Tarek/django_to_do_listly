@@ -28,7 +28,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure--kessoyf&t(#5q
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 # Update ALLOWED_HOSTS for Render
-ALLOWED_HOSTS = [ "*", 'localhost', '127.0.0.1', '.onrender.com']
+ALLOWED_HOSTS = [
+    "*",  # optional, but not recommended for production
+    "localhost",
+    "127.0.0.1",
+    "djangotodolistly-production.up.railway.app"
+]
 
 # Add this for Render's port binding
 PORT = os.environ.get('PORT', '8000')
