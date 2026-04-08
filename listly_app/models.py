@@ -14,7 +14,7 @@ class listly_user(models.Model):
 
 class task(models.Model):
     description = models.CharField(max_length=200)
-    completed = models.BooleanField(default=False)
+    completed = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     username = models.ForeignKey(

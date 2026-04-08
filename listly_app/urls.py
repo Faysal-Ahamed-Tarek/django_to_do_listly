@@ -1,7 +1,6 @@
-from django.urls import path
-
-from .views import all_tasks_api, completed_task,listly_user_views, delete_single_task, edit_task, listly, mark_as_complete, single_task, to_do_app, user_lists
-
+from django.urls import include, path
+from .views import completed_task, listly_user_views, task_add, task_list, UserLists, single_task, delete_task, edit_task_class, delete_single_task, edit_task, listly, mark_as_complete, to_do_app, user_lists
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
@@ -13,8 +12,14 @@ urlpatterns = [
     path("delete_single_task/<int:pk>", delete_single_task, name="delete_single_task"),
     path("completed_task/<int:pk>/", mark_as_complete, name="mark_as_complete"),
     path("edit_task/<int:pk>", edit_task, name = "edit_task"),
+    path("api/", include("listly.router"), name="api"),
     # api
-    path("tasks/", all_tasks_api),
-    path("tasks/<int:pk>", single_task)
-
+    path("tasks/add", task_add.as_view()),
+    path("tasks/", task_list.as_view()),
+    path("tasks/<int:pk>", single_task.as_view()),
+    path("delete/<int:pk>", delete_task.as_view()),
+    path("edit/<int:pk>", edit_task_class.as_view()),
+    path("users/", UserLists)
+    # #token auth
+    # path("auth", obtain_auth_token)
 ]
