@@ -34,7 +34,9 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "djangotodolistly-production.up.railway.app"
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://djangotodolistly-production.up.railway.app"
+]
 # Add this for Render's port binding
 PORT = os.environ.get('PORT', '8000')
 
